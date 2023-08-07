@@ -67,53 +67,54 @@ export const URLExtractor = () => {
   return (
     <div className="mt-3">
       <h3>URL Param Extractor</h3>
-      <label className="block mb-4">
-        Enter URL:
-        <input
-          type="text"
-          value={inputURL}
-          onChange={handleInputChange}
-          className="w-full border rounded-md p-2 my-1 "
-        />
-      </label>
+      <div className="form-control">
+        <label className="block mb-4">
+          Enter your URL here:
+          <input
+            type="text"
+            value={inputURL}
+            onChange={handleInputChange}
+            // className="w-full border rounded-md p-2 my-1 "
+            required
+          />
+        </label>
+      </div>
       <button
         onClick={extractQueryParameters}
-        className="rounded-lg border-0 bg-foreground text-background  p-3"
+        className="button-primary button-sm"
       >
         Extract Query Parameters
       </button>
 
       <h3 className="text-lg font-semibold mt-8">Extracted Parameters:</h3>
-      <div className="mt-4">
+      <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 sm:gap-3">
         {Object.keys(queryParameters).map((key) => (
-          <div key={key} className="mb-2 grid">
-            <span className="block">{key}:</span>{" "}
+          // <div key={key} className="mb-2 grid">
+          <div className="form-control" key={key}>
+            <label>{key}:</label>
             <input
               type="text"
               value={editableParameters[key] || ""}
               onChange={(event) => handleEditableInputChange(event, key)}
-              className="border rounded-md p-2 my-1"
             />
           </div>
+          // </div>
         ))}
 
         {inputURL && (
           <div>
             <button
               onClick={generateNewURL}
-              className="rounded-lg border-0 bg-foreground text-background  p-3"
+              className="button-primary button-sm"
             >
               Generate New URL
             </button>
             {generatedURL && (
               <div className="mt-4">
                 <div className="mb-3 flex items-center">
-                  <input
-                    type="text"
-                    className="form-input border rounded-md p-2 my-1 w-3/4"
-                    readOnly
-                    value={generatedURL}
-                  ></input>
+                  <div className="form-control w-full">
+                    <input type="text" readOnly value={generatedURL}></input>
+                  </div>
                   <Icons.copy
                     onClick={handleCopyClick}
                     className="input-group-text ms-3"
